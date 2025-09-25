@@ -1,0 +1,395 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Outfit", sans-serif;
+    font-optical-sizing: auto;
+}
+
+body {
+    background-color: #000000;
+}
+
+nav {
+    justify-content: space-between;
+    background-color: #000000;
+    padding: 5px;
+    /* border-bottom: 2px solid #ff0000; */
+}
+
+#nav-logo {
+    margin: 0px 385px 0px 25px;
+    cursor: pointer;
+}
+
+.left-nav {
+    gap: 10px;
+}
+
+#home-logo-div {
+    background-color: #1f1f1f;
+    border-radius: 100%;
+    width: 50px;
+    height: 50px;
+    position: relative;
+    cursor: pointer;
+}
+
+#home-logo-div:hover {
+    background-color: #2a2a2a;
+    animation: anim2 0.1s ease-in-out 1 forwards;
+}
+
+@keyframes anim2 {
+    from {
+        transform: scale(1);
+    }
+
+
+    to {
+        transform: scale(1.05);
+    }
+
+}
+
+
+#search-svg {
+    position: absolute;
+    z-index: 2;
+    left: 530px;
+}
+
+#nav-search-bar {
+    background-color: #1f1f1f;
+    /* border: none; */
+    padding: 2px;
+    font-size: 16px;
+    font-weight: 400;
+    border-radius: 36px;
+    padding: 12px 120px 12px 80px;
+    border: 1px solid #40404000;
+}
+
+#nav-search-bar:hover {
+    animation: anim3 0.5s ease-in-out 1 forwards;
+}
+
+@keyframes anim3 {
+    0% {
+        background-color: #1f1f1f;
+        border: 1px solid #40404000;
+        box-shadow: 0px 0px 2px #ffffff00;
+    }
+
+
+    100% {
+        background-color: #2a2a2a;
+        border: 1px solid #404040;
+        box-shadow: 0px 0px 2px #ffffff;
+    }
+
+}
+
+#search-pipe {
+    color: #808080;
+    font-size: 30px;
+    font-weight: 100;
+    position: relative;
+    left: -64px;
+    bottom: 2px;
+}
+
+#browse-svg {
+    position: absolute;
+    z-index: 2;
+    right: 618px;
+}
+
+#right-nav {
+    gap: 10px;
+    color: #b4b4b4;
+}
+
+.right-nav {
+    gap: 20px;
+}
+
+#sign-up-btn {
+    padding: 8px 18px;
+    font-size: 16px;
+    background-color: #ffffff;
+    color: black;
+    font-weight: 700;
+    border-radius: 36px;
+    cursor: pointer;
+
+}
+
+#sign-up-btn:hover {
+    animation: anim4 0.19s ease 1 forwards;
+}
+
+@keyframes anim4 {
+    0% {
+        transform: scale(1);
+    }
+
+
+    100% {
+        transform: scale(1.05);
+    }
+
+}
+
+#nav-right-dwnld-svg {
+    margin-right: 5px;
+    position: relative;
+    top: 2px;
+}
+
+.right-nav a:hover {
+    /* animation: name duration timing-function delay iteration-count direction fill-mode; */
+    animation: anim1 0.1s ease-in-out 1 forwards;
+}
+
+@keyframes anim1 {
+    from {
+        transform: scale(1);
+    }
+
+
+    to {
+        transform: scale(1.1);
+    }
+
+}
+
+#left-sec {
+    background-color: #121212;
+    border-radius: 7px;
+    width: 25vw;
+    padding: 10px;
+    height: inherit;
+}
+
+
+#right-sec {
+    background-color: #212121;
+    border-radius: 5px;
+    width: 75vw;
+    padding: 20px;
+}
+
+
+main {
+    display: flex;
+    gap: 10px;
+    height: 76.5vh;
+}
+
+#left-whole-div {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 10px;
+}
+
+.song {
+    display: flex;
+    color: #ffffff;
+    align-items: center;
+    justify-content: space-between;
+    border: 2px solid #ffffff;
+    border-radius: 7px;
+    padding: 2px 5px;
+    margin: 10px 0px;
+}
+
+.play-btn-pl {
+    padding-top: 3px;
+    cursor: pointer;
+}
+
+.card-container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 20px;
+    height: 53vh;
+    overflow-y: scroll;
+}
+
+.card {
+    width: 180px;
+    padding: 7px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    border-radius: 7px;
+    background-color: #18181800;
+    cursor: pointer;
+}
+
+.card-img {
+    border-radius: inherit;
+}
+
+.card-text  {
+    font-size: 14px;
+    color: #808080;
+    /* text-align: center; */
+}
+
+.card-text h3 {
+    color: #cbcbcb;
+    overflow: hidden;
+    /* text-decoration: underline; */
+}
+
+.card-play-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    background-color: #3aff3a;
+    padding: 5px 5px 5px 9px;
+    border-radius: 100%;
+    position: absolute;
+    right: 18px;
+    bottom: 35px;
+    opacity: 0;
+    cursor: pointer;
+    box-shadow: 0px 0px 8px #ffffff80;
+}
+
+.card:hover .card-play-btn {
+    opacity: 1;
+    bottom: 75px;
+    transition: all 0.3s;
+}
+
+.card:hover{
+    transition: all 0.7s;
+    background-color: #363636;
+}
+
+.card-play-btn:hover {
+    background-color: #00d900;
+
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    height: 12vh;
+    position: fixed;
+    width: 100vw;
+}
+
+.upper-div {
+    padding: 0px;
+    display: flex;
+    flex-wrap: nowrap;
+    /* justify-content: space-between; */
+    align-items: center;
+    width: 90%;
+    position: absolute;
+    top: 15px;
+    margin: 0px auto;
+}
+
+.seek-bar {
+    width: 90%;
+}
+
+#song-time-range {
+    width: 100%;
+}
+
+.seek-btns {
+    display: flex;
+    gap: 10px;
+}
+
+.seek-btns img {
+    cursor: pointer;
+}
+
+.song-pl {
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    overflow: auto;
+}
+
+.song-pl-info {
+    width: -webkit-fill-available;
+    margin-left: 7px;
+    cursor: pointer;
+}
+
+.seek-bar {
+    /* background: black; */
+    width: 91%;
+    /* border: 2px solid black; */
+    margin-top: 20px;
+    /* position: relative; */
+}
+
+.time-bar {
+    cursor: pointer;
+    background: black;
+    width: 100%;
+    border: 2px solid black;
+    margin-top: 30px;
+    position: relative;
+}
+
+.dot {
+    width: 14px;
+    height: 14px;
+    background-color: black;
+    border-radius: 100%;
+    position: relative;
+    top: -8px;
+    transition: left 0.5s;
+    cursor: pointer;
+}
+
+.info-text {
+    display: flex;
+    width: 500px;
+    max-width: 650px;
+    flex-wrap: wrap;
+    overflow: hidden;
+
+    flex: 1;
+    /* allow text to take available space */
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+}
+
+.timer {
+    flex-shrink: 0;
+    /* keep timer visible */
+    position: relative;
+    right: -430px;
+}
+
+.volume {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    right: -250px;
+
+}
