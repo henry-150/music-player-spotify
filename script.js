@@ -16,7 +16,7 @@ function extractSongName(url) {
 async function getSongs(folder) {
     currentFolder = folder;
 
-    let a = await fetch(`http://127.0.0.1:3000/${folder}/`);
+    let a = await fetch(`/${folder}/`);
     let response = await a.text();
 
     let div = document.createElement("div");
@@ -89,7 +89,7 @@ function formatTime(seconds) {
 
 // Fetch all albums (folders in /songs)
 async function getAlbums() {
-    let a = await fetch(`http://127.0.0.1:3000/songs/`);
+    let a = await fetch(`/songs/`);
     let response = await a.text();
 
     let div = document.createElement("div");
