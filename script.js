@@ -16,7 +16,7 @@ function extractSongName(url) {
 async function getSongs(folder) {
     currentFolder = folder;
 
-    let a = await fetch(`https://github.com/henry-150/music-player-spotify/${folder}/`);
+    let a = await fetch(`https://github.com/henry-150/music-player-spotify/tree/main/songs/${folder}/`);
     let response = await a.text();
 
     let div = document.createElement("div");
@@ -89,7 +89,7 @@ function formatTime(seconds) {
 
 // Fetch all albums (folders in /songs)
 async function getAlbums() {
-    let a = await fetch(`https://github.com/henry-150/music-player-spotify/songs/`);
+    let a = await fetch(`https://github.com/henry-150/music-player-spotify/tree/main/songs/`);
     let response = await a.text();
 
     let div = document.createElement("div");
