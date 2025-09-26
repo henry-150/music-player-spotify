@@ -1,4 +1,11 @@
 {
-    "title": "Shubh",
-    "description" : "Songs by Shubh - Punjabi rap Songs"
+    "title": "Shubh ",
+    "description": "Latest songs by Shubh",
+    "songs": [
+        "Shubh - Bandana",
+        "Shubh - Cheques",
+        "Shubh - Dior",
+        "Shubh - One Love",
+        "Shubh - You and Me"
+    ]
 }

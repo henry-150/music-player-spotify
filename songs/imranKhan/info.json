@@ -1,4 +1,9 @@
 {
-    "title": "Imran Khan",
-    "description" : "Songs by Imran Khan -  old era Punjabi hits"
+    "title": "Imran Khan ",
+    "description": "Hits by Imran Khan",
+    "songs": [
+        "Imran Khan - Amplifier",
+        "Imran Khan - Bewafa",
+        "Imran Khan - Pata Chalega"
+    ]
 }

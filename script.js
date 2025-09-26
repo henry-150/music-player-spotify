@@ -15,24 +15,28 @@ function extractSongName(url) {
 // Fetch songs from a given folder
 async function getSongs(folder) {
     currentFolder = folder;
-
-    let a = await fetch(`songs/${folder}/`);
-    let response = await a.text();
-
-    let div = document.createElement("div");
-    div.innerHTML = response;
-
-    let aTags = div.getElementsByTagName("a");
     songs = [];
 
-    for (let element of aTags) {
-        if (["webm", "mp3"].some(ext => element.href.endsWith(ext))) {
+    try {
+        // Fetch the info.json which contains the list of songs
+        let response = await fetch(`${folder}/info.json`);
+        if (!response.ok) {
+            throw new Error(`Could not fetch info.json for ${folder}`);
+        }
+        let albumInfo = await response.json();
+
+        // Use the song list from info.json
+        for (const songFile of albumInfo.songs) {
             songs.push({
-                url: element.href, // full URL
-                name: extractSongName(element.href)
+                url: `${folder}/${songFile}`, // Construct the full URL
+                name: extractSongName(songFile)
             });
         }
+    } catch (error) {
+        console.error("Failed to get songs:", error);
+        return []; // Return empty array on failure
     }
+
 
     let songList = document.querySelector(".song-pl");
     songList.innerHTML = "";
