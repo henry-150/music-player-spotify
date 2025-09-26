@@ -228,7 +228,7 @@ main {
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
+    /* align-items: center; */
     position: relative;
     border-radius: 7px;
     background-color: #18181800;
