@@ -93,14 +93,14 @@ function formatTime(seconds) {
 
 // Fetch all albums (folders in /songs)
 async function getAlbums() {
-    let a = await fetch(`songs/`);
-    let response = await a.text();
+    // let a = await fetch(`songs/`);
+    // let response = await a.text();
 
-    let div = document.createElement("div");
-    div.innerHTML = response;
+    // let div = document.createElement("div");
+    // div.innerHTML = response;
 
-    let anchors = div.getElementsByTagName("a");
-    let array = Array.from(anchors);
+    // let anchors = div.getElementsByTagName("a");
+    // let array = Array.from(anchors);
 
     const albumFolders = ["imranKhan","shubh","talwinder"]
     let cardContainer = document.querySelector(".card-container");
@@ -146,6 +146,8 @@ async function main() {
 
     // Audio ended
     audio.addEventListener("ended", () => {
+        // Also reset the main play button icon
+        seekplay.src = "asssets/play-button-svgrepo-com.svg";
         if (currentBtn) {
             currentBtn.querySelector("img").src = "asssets/play-button-svgrepo-com.svg";
             currentBtn = null;
@@ -195,15 +197,32 @@ async function main() {
     // Controls
     let seeknext = document.getElementById("next-btn");
     let seekprev = document.getElementById("previous-btn");
+
     seekplay = document.getElementById("play-btn");
 
     seekplay.addEventListener("click", () => {
+        // If no song is loaded, and there are songs in the playlist, play the first one.
+        if (!audio.src && songs.length > 0) {
+            const firstSong = songs[0];
+            audio.src = firstSong.url;
+
+            // Also update the UI for the first song in the playlist
+            const firstSongElement = document.querySelector(".song .play-btn-pl");
+            if (firstSongElement) {
+                currentBtn = firstSongElement;
+                currentBtn.querySelector("img").src = "asssets/pause-button-svgrepo-com.svg";
+            }
+            document.querySelector(".info-text").textContent = "Playing : " + firstSong.name;
+        }
+
         if (audio.paused) {
             audio.play();
             seekplay.src = "asssets/pause-button-svgrepo-com.svg";
+            if (currentBtn) currentBtn.querySelector("img").src = "asssets/pause-button-svgrepo-com.svg";
         } else {
             audio.pause();
             seekplay.src = "asssets/play-button-svgrepo-com.svg";
+            if (currentBtn) currentBtn.querySelector("img").src = "asssets/play-button-svgrepo-com.svg";
         }
     });
 
