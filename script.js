@@ -98,31 +98,32 @@ async function getAlbums() {
     let anchors = div.getElementsByTagName("a");
     let array = Array.from(anchors);
 
+    const albumFolders = ["imranKhan","shubh","talwinder"]
     let cardContainer = document.querySelector(".card-container");
 
-    for (let element of array) {
-        if (element.href.includes("/songs/") && !element.href.endsWith("../")) {
-            let folder = element.href.split("/songs/").pop().replace(/\/$/, ""); // clean
-
-            try {
-                let info = await fetch(`songs/${folder}/info.json`);
-                let response = await info.json();
-
-                cardContainer.insertAdjacentHTML("beforeend", `
-                    <div class="card" data-folder="songs/${folder}">
-                        <img width="180" height="170" src="asssets/card-img.jpg" alt="" class="card-img">
-                        <div class="card-play-btn">
-                            <img width="20" height="20" src="asssets/play-1001-svgrepo-com.svg" alt="play">
-                        </div>
-                        <div class="card-text">
-                            <h3 class="album-name">${response.title}</h3>
-                            <p>${response.description}</p>
-                        </div>
-                    </div>
-                `);
-            } catch (err) {
-                console.warn("Missing info.json for", folder);
+    for (const folderName of albumFolders) {
+        try {
+            // Fetch the info.json for each album
+            let infoResponse = await fetch(`songs/${folderName}/info.json`);
+            if (!infoResponse.ok) {
+                throw new Error(`info.json not found for ${folderName}`);
             }
+            let albumInfo = await infoResponse.json();
+
+            cardContainer.insertAdjacentHTML("beforeend", `
+                <div class="card" data-folder="songs/${folderName}">
+                    <img width="180" height="170" src="songs/${folderName}/cover.jpg" alt="album cover" class="card-img">
+                    <div class="card-play-btn">
+                        <img width="20" height="20" src="asssets/play-1001-svgrepo-com.svg" alt="play">
+                    </div>
+                    <div class="card-text">
+                        <h3 class="album-name">${albumInfo.title}</h3>
+                        <p>${albumInfo.description}</p>
+                    </div>
+                </div>
+            `);
+        } catch (err) {
+            console.warn("Could not load album:", folderName, err);
         }
     }
 
