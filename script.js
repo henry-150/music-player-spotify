@@ -1,4 +1,4 @@
-console.log("java script");
+console.log("JavaScript loaded");
 
 let currentFolder;
 let audio = new Audio();
@@ -19,7 +19,7 @@ async function getSongs(folder) {
 
     try {
         // Fetch the info.json which contains the list of songs
-        let response = await fetch(`${folder}/info.json`);
+        let response = await fetch(`/${folder}/info.json`);
         if (!response.ok) {
             throw new Error(`Could not fetch info.json for ${folder}`);
         }
@@ -28,7 +28,7 @@ async function getSongs(folder) {
         // Use the song list from info.json
         for (const songFile of albumInfo.songs) {
             songs.push({
-                url: `${folder}/${songFile}`, // Construct the full URL
+                url: `/${folder}/${songFile}`, // Construct the full URL
                 name: extractSongName(songFile)
             });
         }
@@ -37,7 +37,6 @@ async function getSongs(folder) {
         return []; // Return empty array on failure
     }
 
-
     let songList = document.querySelector(".song-pl");
     songList.innerHTML = "";
 
@@ -45,10 +44,10 @@ async function getSongs(folder) {
         let div = document.createElement("div");
         div.className = "song";
         div.innerHTML = `
-            <img width="30" height="30" class="invert" src="asssets/music-note-circle-svgrepo-com.svg">
+            <img width="30" height="30" class="invert" src="/asssets/music-note-circle-svgrepo-com.svg">
             <div class="song-pl-info"><span>${song.name}</span></div>
             <div class="play-btn-pl">
-                <img width="30" height="30" class="invert pl-btn" src="asssets/play-button-svgrepo-com.svg">
+                <img width="30" height="30" class="invert pl-btn" src="/asssets/play-button-svgrepo-com.svg">
             </div>
         `;
 
@@ -60,18 +59,18 @@ async function getSongs(folder) {
 
             if (audio.src === song.url && !audio.paused) {
                 audio.pause();
-                playIcon.src = "asssets/play-button-svgrepo-com.svg";
-                seekplay.src = "asssets/play-button-svgrepo-com.svg";
+                playIcon.src = "/asssets/play-button-svgrepo-com.svg";
+                seekplay.src = "/asssets/play-button-svgrepo-com.svg";
                 currentBtn = null;
             } else {
                 if (currentBtn) {
-                    currentBtn.querySelector("img").src = "asssets/play-button-svgrepo-com.svg";
+                    currentBtn.querySelector("img").src = "/asssets/play-button-svgrepo-com.svg";
                 }
                 audio.src = song.url;
                 audio.play();
 
-                playIcon.src = "asssets/pause-button-svgrepo-com.svg";
-                seekplay.src = "asssets/pause-button-svgrepo-com.svg";
+                playIcon.src = "/asssets/pause-button-svgrepo-com.svg";
+                seekplay.src = "/asssets/pause-button-svgrepo-com.svg";
 
                 songInfo.textContent = "Playing : " + song.name;
                 currentBtn = playBtn;
@@ -93,32 +92,23 @@ function formatTime(seconds) {
 
 // Fetch all albums (folders in /songs)
 async function getAlbums() {
-    // let a = await fetch(`songs/`);
-    // let response = await a.text();
-
-    // let div = document.createElement("div");
-    // div.innerHTML = response;
-
-    // let anchors = div.getElementsByTagName("a");
-    // let array = Array.from(anchors);
-
-    const albumFolders = ["imranKhan","shubh","talwinder"]
+    const albumFolders = ["songs/imranKhan", "songs/shubh", "songs/talwinder"];
     let cardContainer = document.querySelector(".card-container");
 
     for (const folderName of albumFolders) {
         try {
             // Fetch the info.json for each album
-            let infoResponse = await fetch(`songs/${folderName}/info.json`);
+            let infoResponse = await fetch(`/${folderName}/info.json`);
             if (!infoResponse.ok) {
                 throw new Error(`info.json not found for ${folderName}`);
             }
             let albumInfo = await infoResponse.json();
 
             cardContainer.insertAdjacentHTML("beforeend", `
-                <div class="card" data-folder="songs/${folderName}">
-                    <img width="180" height="170" src="songs/${folderName}/cover.jpg" alt="album cover" class="card-img">
+                <div class="card" data-folder="${folderName}">
+                    <img width="180" height="170" src="/${folderName}/cover.jpg" alt="album cover" class="card-img">
                     <div class="card-play-btn">
-                        <img width="20" height="20" src="asssets/play-1001-svgrepo-com.svg" alt="play">
+                        <img width="20" height="20" src="/asssets/play-1001-svgrepo-com.svg" alt="play">
                     </div>
                     <div class="card-text">
                         <h3 class="album-name">${albumInfo.title}</h3>
@@ -147,9 +137,9 @@ async function main() {
     // Audio ended
     audio.addEventListener("ended", () => {
         // Also reset the main play button icon
-        seekplay.src = "asssets/play-button-svgrepo-com.svg";
+        seekplay.src = "/asssets/play-button-svgrepo-com.svg";
         if (currentBtn) {
-            currentBtn.querySelector("img").src = "asssets/play-button-svgrepo-com.svg";
+            currentBtn.querySelector("img").src = "/asssets/play-button-svgrepo-com.svg";
             currentBtn = null;
         }
     });
@@ -177,8 +167,8 @@ async function main() {
     volumeSlider.addEventListener("input", () => {
         audio.volume = volumeSlider.value;
         volumeSVG.src = audio.volume == 0
-            ? "asssets/volume-xmark-svgrepo-com.svg"
-            : "asssets/volume-max-svgrepo-com.svg";
+            ? "/asssets/volume-xmark-svgrepo-com.svg"
+            : "/asssets/volume-max-svgrepo-com.svg";
     });
 
     volumeSVG.addEventListener("click", () => {
@@ -186,11 +176,11 @@ async function main() {
             lastVolume = audio.volume;
             audio.volume = 0;
             volumeSlider.value = 0;
-            volumeSVG.src = "asssets/volume-xmark-svgrepo-com.svg";
+            volumeSVG.src = "/asssets/volume-xmark-svgrepo-com.svg";
         } else {
             audio.volume = lastVolume || 1;
             volumeSlider.value = audio.volume;
-            volumeSVG.src = "asssets/volume-max-svgrepo-com.svg";
+            volumeSVG.src = "/asssets/volume-max-svgrepo-com.svg";
         }
     });
 
@@ -210,19 +200,19 @@ async function main() {
             const firstSongElement = document.querySelector(".song .play-btn-pl");
             if (firstSongElement) {
                 currentBtn = firstSongElement;
-                currentBtn.querySelector("img").src = "asssets/pause-button-svgrepo-com.svg";
+                currentBtn.querySelector("img").src = "/asssets/pause-button-svgrepo-com.svg";
             }
             document.querySelector(".info-text").textContent = "Playing : " + firstSong.name;
         }
 
         if (audio.paused) {
             audio.play();
-            seekplay.src = "asssets/pause-button-svgrepo-com.svg";
-            if (currentBtn) currentBtn.querySelector("img").src = "asssets/pause-button-svgrepo-com.svg";
+            seekplay.src = "/asssets/pause-button-svgrepo-com.svg";
+            if (currentBtn) currentBtn.querySelector("img").src = "/asssets/pause-button-svgrepo-com.svg";
         } else {
             audio.pause();
-            seekplay.src = "asssets/play-button-svgrepo-com.svg";
-            if (currentBtn) currentBtn.querySelector("img").src = "asssets/play-button-svgrepo-com.svg";
+            seekplay.src = "/asssets/play-button-svgrepo-com.svg";
+            if (currentBtn) currentBtn.querySelector("img").src = "/asssets/play-button-svgrepo-com.svg";
         }
     });
 
@@ -237,7 +227,7 @@ async function main() {
         let prevSong = songs[prevIndex];
 
         if (currentBtn) {
-            currentBtn.querySelector("img").src = "asssets/play-button-svgrepo-com.svg";
+            currentBtn.querySelector("img").src = "/asssets/play-button-svgrepo-com.svg";
         }
 
         audio.src = prevSong.url;
@@ -247,8 +237,8 @@ async function main() {
         let targetBtn = allSongs[prevIndex].querySelector(".play-btn-pl");
         let playIcon = targetBtn.querySelector("img");
 
-        playIcon.src = "asssets/pause-button-svgrepo-com.svg";
-        seekplay.src = "asssets/pause-button-svgrepo-com.svg";
+        playIcon.src = "/asssets/pause-button-svgrepo-com.svg";
+        seekplay.src = "/asssets/pause-button-svgrepo-com.svg";
 
         document.querySelector(".info-text").textContent =
             "Playing : " + prevSong.name;
@@ -267,7 +257,7 @@ async function main() {
         let nextSong = songs[nextIndex];
 
         if (currentBtn) {
-            currentBtn.querySelector("img").src = "asssets/play-button-svgrepo-com.svg";
+            currentBtn.querySelector("img").src = "/asssets/play-button-svgrepo-com.svg";
         }
 
         audio.src = nextSong.url;
@@ -277,8 +267,8 @@ async function main() {
         let targetBtn = allSongs[nextIndex].querySelector(".play-btn-pl");
         let playIcon = targetBtn.querySelector("img");
 
-        playIcon.src = "asssets/pause-button-svgrepo-com.svg";
-        seekplay.src = "asssets/pause-button-svgrepo-com.svg";
+        playIcon.src = "/asssets/pause-button-svgrepo-com.svg";
+        seekplay.src = "/asssets/pause-button-svgrepo-com.svg";
 
         document.querySelector(".info-text").textContent =
             "Playing : " + nextSong.name;
